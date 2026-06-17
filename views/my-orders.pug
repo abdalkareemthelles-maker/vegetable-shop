@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1 📦 طلباتي
+
+    a(href="/")
+      button العودة للمتجر
+
+    br
+    br
+
+    if orders.length === 0
+
+      h2 لا توجد طلبات حتى الآن
+
+    else
+
+      each order in orders
+
+        .product
+
+          h2 طلب رقم ##{order.id}
+
+          p 💰 المبلغ: #{order.total} $
+
+          p 🚚 الحالة: #{order.status}
+
+          p 📅 التاريخ: #{order.created_at}
+
+          h3 المنتجات
+
+          ul
+            each item in order.items
+              li #{item.name} - الكمية: #{item.qty}
+
+          hr

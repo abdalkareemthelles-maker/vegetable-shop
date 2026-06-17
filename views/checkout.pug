@@ -1,0 +1,78 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title إتمام الطلب
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1 💳 إتمام الطلب
+
+    if cart.length === 0
+
+      h2 السلة فارغة
+
+      a(href="/")
+        button العودة للمتجر
+
+    else
+
+      h2 المنتجات المطلوبة
+
+      table(border="1" width="100%")
+        tr
+          th المنتج
+          th السعر
+          th الكمية
+          th المجموع
+
+        each item in cart
+          tr
+            td= item.name
+            td #{item.price} $
+            td= item.qty
+            td #{item.price * item.qty} $
+
+      br
+
+      h2 إجمالي الطلب: #{total} $
+
+      hr
+
+      form(action="/confirm-order" method="POST")
+
+        h3 بيانات الطلب
+
+        input(
+          type="text"
+          name="customer_name"
+          placeholder="الاسم الكامل"
+          required
+        )
+
+        br
+        br
+
+        input(
+          type="text"
+          name="phone"
+          placeholder="رقم الجوال"
+          required
+        )
+
+        br
+        br
+
+        input(
+          type="text"
+          name="address"
+          placeholder="العنوان"
+          required
+        )
+
+        br
+        br
+
+        button(type="submit")
+          | ✅ تأكيد الطلب

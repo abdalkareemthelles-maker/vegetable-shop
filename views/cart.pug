@@ -1,0 +1,66 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title السلة
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1 🛒 سلة المشتريات
+
+    a(href="/")
+      button متابعة التسوق
+
+    br
+    br
+
+    if cart.length === 0
+
+      h2 السلة فارغة
+
+    else
+
+      table(border="1" width="100%")
+        tr
+          th الصورة
+          th المنتج
+          th السعر
+          th الكمية
+          th المجموع
+          th التحكم
+
+        each item in cart
+
+          tr
+
+            td
+              img(src=item.image width="80")
+
+            td= item.name
+
+            td #{item.price} $
+
+            td #{item.qty}
+
+            td #{item.price * item.qty} $
+
+            td
+
+              a(href=`/increase/${item.id}`)
+                button +
+
+              a(href=`/decrease/${item.id}`)
+                button -
+
+              a(href=`/remove-from-cart/${item.id}`)
+                button حذف
+
+      br
+
+      h2 المجموع الكلي: #{total} $
+
+      br
+
+      a(href="/checkout")
+        button 💳 إتمام الطلب

@@ -1,0 +1,201 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  background: #eef1f5;
+  color: #222;
+}
+
+/* ================= HEADER ================= */
+h1 {
+  background: #0f3d2e;
+  color: white;
+  padding: 22px;
+  text-align: center;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+/* ================= NAVBAR ================= */
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 15px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  margin-bottom: 10px;
+  border-radius: 0 0 12px 12px;
+}
+
+.nav span {
+  font-weight: bold;
+  color: #0f3d2e;
+}
+
+/* ================= BUTTONS ================= */
+button {
+  background: #0f3d2e;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #145c44;
+  transform: scale(1.05);
+}
+
+/* ================= LINKS ================= */
+a {
+  text-decoration: none;
+}
+
+/* ================= SEARCH ================= */
+form {
+  text-align: center;
+  margin: 10px 0;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f7f9fb;
+}
+
+/* ================= PRODUCTS ================= */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 18px;
+}
+
+.product {
+  background: white;
+  width: 220px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: 0.3s;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.product img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.product h3 {
+  margin: 10px 0;
+  color: #0f3d2e;
+}
+
+.product p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* ================= TABLES ================= */
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+th {
+  background: #0f3d2e;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+/* ================= LOGIN / REGISTER UI ================= */
+.auth-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eef1f5;
+}
+
+.auth-box {
+  background: white;
+  padding: 30px;
+  width: 320px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-box h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #0f3d2e;
+  background: none;
+}
+
+.auth-box input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f7f9fb;
+}
+
+.auth-box button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.auth-box p {
+  margin-top: 15px;
+  color: #666;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  .product {
+    width: 90%;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  .auth-box {
+    width: 90%;
+  }
+}

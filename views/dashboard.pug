@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    h1 📊 لوحة الإحصائيات
+
+    a(href="/admin")
+      button رجوع للوحة التحكم
+
+    hr
+
+    div(class="product")
+      h2 عدد المنتجات
+      h3= productsCount
+
+    div(class="product")
+      h2 عدد الطلبات
+      h3= ordersCount
+
+    div(class="product")
+      h2 إجمالي الأرباح 💰
+      h3= totalSales + " $"

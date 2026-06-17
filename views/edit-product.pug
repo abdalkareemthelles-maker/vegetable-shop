@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    h1= title
+
+    form(action=`/edit-product/${product.id}` method="POST")
+      input(type="text" name="name" value=product.name)
+      br
+      br
+
+      input(type="number" name="price" value=product.price)
+      br
+      br
+
+      input(type="text" name="image" value=product.image)
+      br
+      br
+
+      button(type="submit") حفظ التعديل 💾

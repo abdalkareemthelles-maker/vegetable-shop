@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1 🛒 #{title}
+
+    // ===== Navbar =====
+    .nav
+
+      if user
+        span 👋 مرحباً #{user.username}
+
+        a(href="/")
+          button 🏠 الرئيسية
+
+        if user.username != 'admin'
+          a(href="/my-orders")
+            button 📦 طلباتي
+
+        a(href="/cart")
+          button 🛒 السلة
+
+        a(href="/logout")
+          button 🚪 تسجيل خروج
+
+      else
+        .nav
+          a(href="/login")
+            button تسجيل دخول
+
+          a(href="/register")
+            button إنشاء حساب
+
+    hr
+
+    // ===== Search =====
+    form(action="/" method="GET")
+      input(type="text" name="search" placeholder="ابحث عن منتج..." value=search)
+      button 🔍 بحث
+
+    br
+    br
+
+    // ===== Admin Panel Buttons =====
+    if user && user.username == 'admin'
+      .nav
+        a(href="/admin")
+          button لوحة التحكم
+
+        a(href="/add-product")
+          button ➕ إضافة منتج
+
+    hr
+
+    // ===== Products =====
+    .container
+
+      each product in products
+
+        .product
+
+          a(href=`/product/${product.id}`)
+            img(src=product.image width="150")
+
+          a(href=`/product/${product.id}`)
+            h3= product.name
+
+          p السعر: #{product.price} $
+
+          a(href=`/add-to-cart/${product.id}`)
+            button 🛒 إضافة للسلة

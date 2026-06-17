@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1= product.name
+
+    .product(style="text-align:center")
+
+      img(src=product.image width="300")
+
+      h2 السعر: #{product.price} $
+
+      p وصف المنتج غير متوفر حالياً
+
+      a(href=`/add-to-cart/${product.id}`)
+        button 🛒 إضافة إلى السلة
+
+      br
+      br
+
+      a(href="/")
+        button العودة للمتجر

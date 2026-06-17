@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    h1 لوحة التحكم 🧑‍💼
+
+    // أزرار التحكم العلوية
+    a(href="/logout")
+      button تسجيل خروج 🚪
+
+    a(href="/add-product")
+      button إضافة منتج جديد ➕
+
+    a(href="/orders")
+      button عرض الطلبات 🧾
+    a(href="/dashboard")
+      button الإحصائيات 📊
+    a(href="/")
+      button الرجوع للمتجر 🛒
+
+    br
+    br
+    hr
+
+    // عرض المنتجات
+    each product in products
+      div(class="product")
+        img(src=product.image width="150")
+        h3= product.name
+        p السعر: #{product.price} $
+
+        a(href=`/edit-product/${product.id}`)
+          button تعديل ✏️
+
+        br
+        br
+
+        a(href=`/delete-product/${product.id}`)
+          button حذف ❌
+
+        br
+        br
+
+    hr
+
+    p لوحة إدارة المتجر كاملة 🧠

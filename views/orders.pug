@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+
+    h1 🧾 الطلبات
+
+    a(href="/admin")
+      button العودة للوحة التحكم
+
+    br
+    br
+
+    if orders.length === 0
+
+      h2 لا توجد طلبات حالياً
+
+    else
+
+      each order in orders
+
+        .product
+
+          h2 طلب رقم ##{order.id}
+
+          if order.username
+            p 👤 المستخدم: #{order.username}
+
+          p 📞 الجوال: #{order.phone}
+
+          p 🏠 العنوان: #{order.address}
+
+          p 📅 التاريخ: #{order.created_at}
+
+          p 💰 الإجمالي: #{order.total} $
+
+          p 🚚 الحالة الحالية: #{order.status}
+
+          h3 المنتجات:
+
+          ul
+            each item in order.items
+
+              li
+                | #{item.name}
+                |  - الكمية: #{item.qty}
+                |  - السعر: #{item.price}$
+
+          br
+
+          a(href=`/change-status/${order.id}/processing`)
+            button جاري التجهيز
+
+          a(href=`/change-status/${order.id}/shipped`)
+            button تم الشحن
+
+          a(href=`/change-status/${order.id}/delivered`)
+            button تم التسليم
+
+          hr
