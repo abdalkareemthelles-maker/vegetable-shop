@@ -7,8 +7,9 @@ html
 
   body
 
-    .auth-container
+    include includes/header
 
+    .auth-container
       .auth-box
 
         h1 🔐 تسجيل الدخول
@@ -22,4 +23,6 @@ html
         p ما عندك حساب؟
 
         a(href="/register")
-          button إنشاء حساب
+          button(type="button") إنشاء حساب
+
+    include includes/footer

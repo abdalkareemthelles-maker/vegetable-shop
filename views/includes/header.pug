@@ -1,0 +1,22 @@
+.nav
+  .nav-inner
+
+    if user
+
+      span 👋 #{user.username}
+
+      a(href="/") 🏠 الرئيسية
+
+      a(href="/cart")
+        | 🛒 السلة
+        span#cart-counter #{cartCount || 0}
+
+      a(href="/logout") 🚪 تسجيل خروج
+
+    else
+
+      span 🌿 أهلاً وسهلاً بكم في متجر الخضروات
+
+      a(href="/login") 
+
+      a(href="/register") 

@@ -2,49 +2,64 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title= title
+    title لوحة التحكم
     link(rel="stylesheet", href="/css/style.css")
 
   body
+
+    include includes/header
+
     h1 لوحة التحكم 🧑‍💼
 
-    // أزرار التحكم العلوية
-    a(href="/logout")
-      button تسجيل خروج 🚪
+    // ================= NAV ACTIONS =================
+    .admin-actions
+      a(href="/add-product")
+        button ➕ إضافة منتج
 
-    a(href="/add-product")
-      button إضافة منتج جديد ➕
+      a(href="/orders")
+        button 🧾 الطلبات
 
-    a(href="/orders")
-      button عرض الطلبات 🧾
-    a(href="/dashboard")
-      button الإحصائيات 📊
-    a(href="/")
-      button الرجوع للمتجر 🛒
+      a(href="/dashboard")
+        button 📊 الإحصائيات
 
-    br
-    br
-    hr
+      a(href="/")
+        button 🛒 المتجر
 
-    // عرض المنتجات
-    each product in products
-      div(class="product")
-        img(src=product.image width="150")
-        h3= product.name
-        p السعر: #{product.price} $
+      a(href="/logout")
+        button 🚪 خروج
 
-        a(href=`/edit-product/${product.id}`)
-          button تعديل ✏️
+    // ================= PRODUCTS GRID =================
+    .products
 
-        br
-        br
+      each product in products
 
-        a(href=`/delete-product/${product.id}`)
-          button حذف ❌
+        .product
 
-        br
-        br
+          img(src=product.image)
 
-    hr
+          h3= product.name
 
-    p لوحة إدارة المتجر كاملة 🧠
+          p.price #{product.price} $
+
+          .actions
+            a(href=`/edit-product/${product.id}`)
+              button.edit ✏️ تعديل
+
+            button.delete(onclick=`deleteProduct(${product.id}, this)`)
+              | ❌ حذف
+
+    include includes/footer
+
+    // ================= JS AJAX =================
+    script.
+      function deleteProduct(id, btn){
+        fetch('/delete-product/' + id, {
+          method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.success){
+            btn.closest('.product').remove();
+          }
+        });
+      }

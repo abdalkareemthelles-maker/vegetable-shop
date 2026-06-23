@@ -2,10 +2,12 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title= title
+    title الطلبات
     link(rel="stylesheet", href="/css/style.css")
 
   body
+
+    include includes/header
 
     h1 🧾 الطلبات
 
@@ -31,34 +33,63 @@ html
             p 👤 المستخدم: #{order.username}
 
           p 📞 الجوال: #{order.phone}
-
           p 🏠 العنوان: #{order.address}
-
           p 📅 التاريخ: #{order.created_at}
-
           p 💰 الإجمالي: #{order.total} $
 
-          p 🚚 الحالة الحالية: #{order.status}
+          p
+            | 🚚 الحالة الحالية:
+            span(id=`status-${order.id}`) #{order.status}
+
+          br
+
+          button(onclick=`changeStatus(${order.id},'pending')`)
+            | ⏳ انتظار
+
+          button(onclick=`changeStatus(${order.id},'processing')`)
+            | 📦 تجهيز
+
+          button(onclick=`changeStatus(${order.id},'delivered')`)
+            | ✅ تم التوصيل
+
+          br
+          br
 
           h3 المنتجات:
 
           ul
             each item in order.items
-
               li
-                | #{item.name}
-                |  - الكمية: #{item.qty}
-                |  - السعر: #{item.price}$
+                | #{item.name} - الكمية: #{item.qty} - السعر: #{item.price}$
 
-          br
+    script.
+      function changeStatus(id, status){
 
-          a(href=`/change-status/${order.id}/processing`)
-            button جاري التجهيز
+        fetch('/change-status-ajax/' + id, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: 'status=' + status
+        })
+        .then(res => res.json())
+        .then(data => {
 
-          a(href=`/change-status/${order.id}/shipped`)
-            button تم الشحن
+          if(data.success){
 
-          a(href=`/change-status/${order.id}/delivered`)
-            button تم التسليم
+            let statusSpan =
+              document.getElementById('status-' + id);
 
-          hr
+            statusSpan.innerHTML = data.status;
+
+          }
+
+        })
+        .catch(err => {
+          console.log(err);
+          alert('حدث خطأ');
+        });
+
+      }
+
+    include includes/footer

@@ -2,10 +2,13 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title= title
+    title إضافة منتج
     link(rel="stylesheet", href="/css/style.css")
 
   body
+
+    include includes/header
+
     h1 إضافة منتج جديد ➕
 
     a(href="/admin")
@@ -14,21 +17,52 @@ html
     br
     br
 
-    form(action="/add-product" method="POST" enctype="multipart/form-data")
-      
-      div
-        input(type="text" name="name" placeholder="اسم المنتج" required)
+    // ================= FORM =================
+    form(onsubmit="return addProductAjax(this)", enctype="multipart/form-data")
 
+      input(type="text", name="name", placeholder="اسم المنتج", required)
+      br
       br
 
-      div
-        input(type="number" name="price" placeholder="السعر" required)
-
+      input(type="number", name="price", placeholder="السعر", required)
+      br
       br
 
-      div
-        input(type="file" name="image" accept="image/*" required)
-
+      input(type="file", name="image", accept="image/*", required)
+      br
       br
 
       button(type="submit") إضافة المنتج ✔
+
+    include includes/footer
+
+    // ================= JAVASCRIPT =================
+    script.
+      function addProductAjax(form){
+
+        let formData = new FormData(form);
+
+        fetch('/add-product-ajax', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+
+          console.log(data);
+
+          if(data.success){
+            alert("تمت الإضافة بنجاح ✔");
+            window.location.href = "/admin";
+          } else {
+            alert(data.message || "فشل ❌");
+          }
+
+        })
+        .catch(err => {
+          console.log(err);
+          alert("خطأ في السيرفر ❌");
+        });
+
+        return false;
+      }

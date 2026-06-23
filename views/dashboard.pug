@@ -2,25 +2,29 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title= title
+    title الإحصائيات
     link(rel="stylesheet", href="/css/style.css")
 
   body
-    h1 📊 لوحة الإحصائيات
 
-    a(href="/admin")
-      button رجوع للوحة التحكم
+    include includes/header
 
-    hr
+    h1 📊 إحصائيات المتجر
 
-    div(class="product")
-      h2 عدد المنتجات
-      h3= productsCount
+    .container
 
-    div(class="product")
-      h2 عدد الطلبات
-      h3= ordersCount
+      .product
+        h2 المنتجات
+        h3 #{totalProducts}
 
-    div(class="product")
-      h2 إجمالي الأرباح 💰
-      h3= totalSales + " $"
+      .product
+        h2 المستخدمون
+        h3 #{totalUsers}
+
+      .product
+        h2 الطلبات
+        h3 #{totalOrders}
+
+      .product
+        h2 المبيعات
+        h3 #{totalSales} $

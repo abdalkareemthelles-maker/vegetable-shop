@@ -2,10 +2,12 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title السلة
+    title سلة المشتريات
     link(rel="stylesheet", href="/css/style.css")
 
   body
+
+    include includes/header
 
     h1 🛒 سلة المشتريات
 
@@ -22,6 +24,7 @@ html
     else
 
       table(border="1" width="100%")
+
         tr
           th الصورة
           th المنتج
@@ -41,26 +44,31 @@ html
 
             td #{item.price} $
 
-            td #{item.qty}
+            // 🔥 الكمية (نضيف class للتحديث)
+            td.qty= item.qty
 
-            td #{item.price * item.qty} $
+            // 🔥 المجموع لكل منتج
+            td.total= item.price * item.qty + " $"
 
             td
 
-              a(href=`/increase/${item.id}`)
-                button +
-
-              a(href=`/decrease/${item.id}`)
-                button -
-
-              a(href=`/remove-from-cart/${item.id}`)
-                button حذف
+              button.plus(data-id=item.id) +
+              button.minus(data-id=item.id) -
+              button.delete(data-id=item.id) حذف
 
       br
+      br
 
-      h2 المجموع الكلي: #{total} $
+      h2 المجموع الكلي:
+        span#total= total
+        |  $
 
       br
 
       a(href="/checkout")
         button 💳 إتمام الطلب
+
+    include includes/footer
+
+    // ================= JS =================
+    script(src="/js/cart.js")

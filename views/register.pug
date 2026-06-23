@@ -1,15 +1,36 @@
 doctype html
 html
   head
-    title= title
+    meta(charset="UTF-8")
+    title إنشاء حساب
     link(rel="stylesheet", href="/css/style.css")
 
   body
-    h1 إنشاء حساب 👤
 
-    form(action="/register" method="POST")
-      input(type="text" name="username" placeholder="اسم المستخدم" required)
-      br
-      input(type="password" name="password" placeholder="كلمة المرور" required)
-      br
-      button(type="submit") تسجيل
+    include includes/header
+
+    .auth-container
+      .auth-box
+
+        if error
+          .error-message= error
+
+        form(method="POST", action="/register")
+
+          input(type="text", name="username", placeholder="اسم المستخدم", required)
+          input(type="email", name="email", placeholder="الإيميل", required)
+          input(type="text", name="phone", placeholder="رقم الجوال", required)
+
+          select(name="gender", required)
+            option(value="") اختر الجنس
+            option(value="male") ذكر
+            option(value="female") أنثى
+
+          input(type="date", name="birthdate", required)
+
+          input(type="password", name="password", placeholder="كلمة المرور", required)
+          input(type="password", name="confirmPassword", placeholder="تأكيد كلمة المرور", required)
+
+          button(type="submit") إنشاء حساب
+
+    include includes/footer

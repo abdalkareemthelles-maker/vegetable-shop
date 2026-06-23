@@ -2,75 +2,108 @@ doctype html
 html
   head
     meta(charset="UTF-8")
-    title= title
+    title المتجر
     link(rel="stylesheet", href="/css/style.css")
 
   body
 
-    h1 🛒 #{title}
-
-    // ===== Navbar =====
-    .nav
-
-      if user
-        span 👋 مرحباً #{user.username}
-
-        a(href="/")
-          button 🏠 الرئيسية
-
-        if user.username != 'admin'
-          a(href="/my-orders")
-            button 📦 طلباتي
-
-        a(href="/cart")
-          button 🛒 السلة
-
-        a(href="/logout")
-          button 🚪 تسجيل خروج
-
-      else
-        .nav
-          a(href="/login")
-            button تسجيل دخول
-
-          a(href="/register")
-            button إنشاء حساب
-
-    hr
-
-    // ===== Search =====
-    form(action="/" method="GET")
-      input(type="text" name="search" placeholder="ابحث عن منتج..." value=search)
-      button 🔍 بحث
+    include includes/header
 
     br
+
+    form(method="GET", action="/")
+      input(
+        type="text"
+        name="search"
+        placeholder="ابحث عن منتج..."
+        value=search
+      )
+      button(type="submit") 🔍 بحث
+
     br
 
-    // ===== Admin Panel Buttons =====
-    if user && user.username == 'admin'
-      .nav
-        a(href="/admin")
-          button لوحة التحكم
-
-        a(href="/add-product")
-          button ➕ إضافة منتج
-
-    hr
-
-    // ===== Products =====
     .container
 
       each product in products
 
         .product
 
-          a(href=`/product/${product.id}`)
-            img(src=product.image width="150")
+          img(src=product.image)
 
-          a(href=`/product/${product.id}`)
-            h3= product.name
+          h3= product.name
 
           p السعر: #{product.price} $
 
-          a(href=`/add-to-cart/${product.id}`)
-            button 🛒 إضافة للسلة
+          - var item = cart.find(i => String(i.id) === String(product.id))
+
+          .cart-box
+
+            button(
+              type="button"
+              onclick=`addToCart(${product.id})`
+            )
+              | 🛒 سلة +
+
+            span.qty(data-id=product.id)
+              | 🧺 #{item ? item.qty : 0}
+
+            button(
+              type="button"
+              onclick=`removeFromCart(${product.id})`
+            )
+              | 🛒 سلة -
+
+    include includes/footer
+
+    script.
+      function addToCart(id) {
+
+        fetch('/add-to-cart/' + id)
+          .then(res => res.json())
+          .then(data => {
+
+            let qty =
+              document.querySelector(`[data-id="${id}"]`);
+
+            qty.innerHTML = "🧺 " + data.qty;
+
+            let counter =
+              document.getElementById("cart-counter");
+
+            if(counter){
+              counter.innerHTML =
+                "🛒 السلة (" + data.cartCount + ")";
+            }
+
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+      }
+
+      function removeFromCart(id) {
+
+        fetch('/decrease/' + id)
+          .then(res => res.json())
+          .then(data => {
+
+            let qty =
+              document.querySelector(`[data-id="${id}"]`);
+
+            qty.innerHTML = "🧺 " + data.qty;
+
+            let counter =
+              document.getElementById("cart-counter");
+
+            if(counter){
+              counter.innerHTML =
+                "🛒 السلة (" + data.cartCount + ")";
+            }
+
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+      }
